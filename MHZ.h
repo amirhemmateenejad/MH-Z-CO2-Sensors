@@ -5,13 +5,13 @@
 #ifndef MHZ_H
 #define MHZ_H
 
-#if ARDUINO >= 100
+// #if ARDUINO >= 100
 #include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
+// #else
+// #include "WProgram.h"
+// #endif
 
-#include <SoftwareSerial.h>
+// #include <SoftwareSerial.h>
 #include <limits.h>
 
 class MHZ {
