@@ -44,23 +44,21 @@ void IRAM_ATTR pulseInInterruptHandler() {
 }
 
 MHZ::MHZ(uint8_t rxpin, uint8_t txpin, uint8_t pwmpin, SensorType type, MeasuringRange range) {
-  SoftwareSerial* ss = new SoftwareSerial(rxpin, txpin);
   _pwmpin = pwmpin;
   sPwmPin = pwmpin;
   _type = type;
   _range = range;
   sRange = range;
 
-  ss->begin(9600);
-  _serial = ss;
+  Serial2.begin(9600, SERIAL_8N1, rxpin, txpin); // initialize Serial2
+  _serial = &Serial2; // use pointer to Serial2
 }
 
 MHZ::MHZ(uint8_t rxpin, uint8_t txpin, SensorType type) {
-  SoftwareSerial* ss = new SoftwareSerial(rxpin, txpin);
   _type = type;
 
-  ss->begin(9600);
-  _serial = ss;
+  Serial2.begin(9600, SERIAL_8N1, rxpin, txpin); // initialize Serial2
+  _serial = &Serial2; // use pointer to Serial2
 }
 
 MHZ::MHZ(uint8_t pwmpin, SensorType type, MeasuringRange range) {
@@ -87,9 +85,7 @@ MHZ::MHZ(Stream* serial, SensorType type) {
 
 void MHZ::activateAsyncUARTReading() {
   attachInterrupt(digitalPinToInterrupt(sPwmPin), pulseInInterruptHandler, CHANGE);
-}
-
-/**
+}/**
  * Enables or disables the debug mode (more logging).
  */
 void MHZ::setDebug(boolean enable, Stream* console) {

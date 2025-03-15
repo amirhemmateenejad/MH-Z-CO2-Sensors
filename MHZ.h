@@ -11,7 +11,7 @@
 // #include "WProgram.h"
 // #endif
 
-// #include <SoftwareSerial.h>
+#include <HardwareSerial.h> // Include HardwareSerial
 #include <limits.h>
 
 class MHZ {
